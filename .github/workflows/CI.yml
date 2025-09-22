@@ -44,17 +44,17 @@ jobs:
       - name: Set version from tag
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
+          if ($env:RUNNER_OS -eq "Windows") {
             $VERSION = $env:GITHUB_REF -replace 'refs/tags/', ''
             $VERSION = $VERSION -replace '^v', ''
             echo "VERSION=$VERSION" >> $env:GITHUB_ENV
             echo "Setting version to: $VERSION"
-          else
+          } else {
             VERSION=${GITHUB_REF#refs/tags/}
             VERSION=${VERSION#v}
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "Setting version to: $VERSION"
-          fi
+          }
       - name: Update Cargo.toml version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
@@ -100,17 +100,17 @@ jobs:
       - name: Set version from tag
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
+          if ($env:RUNNER_OS -eq "Windows") {
             $VERSION = $env:GITHUB_REF -replace 'refs/tags/', ''
             $VERSION = $VERSION -replace '^v', ''
             echo "VERSION=$VERSION" >> $env:GITHUB_ENV
             echo "Setting version to: $VERSION"
-          else
+          } else {
             VERSION=${GITHUB_REF#refs/tags/}
             VERSION=${VERSION#v}
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "Setting version to: $VERSION"
-          fi
+          }
       - name: Update Cargo.toml version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
@@ -153,17 +153,17 @@ jobs:
       - name: Set version from tag
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
+          if ($env:RUNNER_OS -eq "Windows") {
             $VERSION = $env:GITHUB_REF -replace 'refs/tags/', ''
             $VERSION = $VERSION -replace '^v', ''
             echo "VERSION=$VERSION" >> $env:GITHUB_ENV
             echo "Setting version to: $VERSION"
-          else
+          } else {
             VERSION=${GITHUB_REF#refs/tags/}
             VERSION=${VERSION#v}
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "Setting version to: $VERSION"
-          fi
+          }
       - name: Update Cargo.toml version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
@@ -202,17 +202,17 @@ jobs:
       - name: Set version from tag
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
+          if ($env:RUNNER_OS -eq "Windows") {
             $VERSION = $env:GITHUB_REF -replace 'refs/tags/', ''
             $VERSION = $VERSION -replace '^v', ''
             echo "VERSION=$VERSION" >> $env:GITHUB_ENV
             echo "Setting version to: $VERSION"
-          else
+          } else {
             VERSION=${GITHUB_REF#refs/tags/}
             VERSION=${VERSION#v}
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "Setting version to: $VERSION"
-          fi
+          }
       - name: Update Cargo.toml version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
@@ -241,17 +241,17 @@ jobs:
       - name: Set version from tag
         if: startsWith(github.ref, 'refs/tags/')
         run: |
-          if [[ "$RUNNER_OS" == "Windows" ]]; then
+          if ($env:RUNNER_OS -eq "Windows") {
             $VERSION = $env:GITHUB_REF -replace 'refs/tags/', ''
             $VERSION = $VERSION -replace '^v', ''
             echo "VERSION=$VERSION" >> $env:GITHUB_ENV
             echo "Setting version to: $VERSION"
-          else
+          } else {
             VERSION=${GITHUB_REF#refs/tags/}
             VERSION=${VERSION#v}
             echo "VERSION=$VERSION" >> $GITHUB_ENV
             echo "Setting version to: $VERSION"
-          fi
+          }
       - name: Update Cargo.toml version
         if: startsWith(github.ref, 'refs/tags/')
         run: |
