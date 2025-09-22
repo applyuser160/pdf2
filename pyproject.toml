@@ -6,9 +6,31 @@ build-backend = "maturin"
 name = "pdf2"
 requires-python = ">=3.8"
 classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Image Processing",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics :: Graphics Conversion",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics :: Graphics Conversion :: PDF",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics :: Graphics Conversion :: PDF to Image",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics :: Graphics Conversion :: Image to PDF",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics :: Graphics Conversion :: PDF to Image",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics :: Graphics Conversion :: Image to PDF",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics :: Graphics Conversion :: PDF to Image",
+    "Topic :: Scientific/Engineering :: Image Processing :: Graphics :: Graphics Conversion :: Image to PDF",
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 dynamic = ["version"]
 
