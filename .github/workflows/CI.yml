@@ -41,6 +41,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+      - name: Set version from tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          VERSION=${VERSION#v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Setting version to: $VERSION"
+      - name: Update Cargo.toml version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          sed -i "s/^version = \".*\"/version = \"$VERSION\"/" Cargo.toml
+          echo "Updated Cargo.toml version to: $VERSION"
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -72,6 +84,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+      - name: Set version from tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          VERSION=${VERSION#v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Setting version to: $VERSION"
+      - name: Update Cargo.toml version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          sed -i "s/^version = \".*\"/version = \"$VERSION\"/" Cargo.toml
+          echo "Updated Cargo.toml version to: $VERSION"
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -100,6 +124,30 @@ jobs:
         with:
           python-version: 3.x
           architecture: ${{ matrix.platform.target }}
+      - name: Set version from tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          if ($env:RUNNER_OS -eq "Windows") {
+            $VERSION = $env:GITHUB_REF -replace 'refs/tags/', ''
+            $VERSION = $VERSION -replace '^v', ''
+            echo "VERSION=$VERSION" >> $env:GITHUB_ENV
+            echo "Setting version to: $VERSION"
+          } else {
+            VERSION=${GITHUB_REF#refs/tags/}
+            VERSION=${VERSION#v}
+            echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "Setting version to: $VERSION"
+          }
+      - name: Update Cargo.toml version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          if ($env:RUNNER_OS -eq "Windows") {
+            (Get-Content Cargo.toml) -replace '^version = ".*"', "version = `"$env:VERSION`"" | Set-Content Cargo.toml
+            echo "Updated Cargo.toml version to: $env:VERSION"
+          } else {
+            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" Cargo.toml
+            echo "Updated Cargo.toml version to: $VERSION"
+          }
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -126,6 +174,18 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.x
+      - name: Set version from tag
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          VERSION=${VERSION#v}
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "Setting version to: $VERSION"
+      - name: Update Cargo.toml version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          sed -i '' "s/^version = \".*\"/version = \"$VERSION\"/" Cargo.toml
+          echo "Updated Cargo.toml version to: $VERSION"
       - name: Build wheels
         uses: PyO3/maturin-action@v1
         with:
@@ -166,19 +226,6 @@ jobs:
       # Used to generate artifact attestation
       attestations: write
     steps:
-      - uses: actions/checkout@v4
-      - name: Set version from tag
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/}
-          VERSION=${VERSION#v}
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Setting version to: $VERSION"
-      - name: Update Cargo.toml version
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          sed -i "s/^version = \".*\"/version = \"$VERSION\"/" Cargo.toml
-          echo "Updated Cargo.toml version to: $VERSION"
       - uses: actions/download-artifact@v4
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
