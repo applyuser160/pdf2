@@ -2,6 +2,11 @@
 name = "pdf2"
 version = "0.1.0"
 edition = "2021"
+description = "A Python module implemented in Rust"
+license = "MIT"
+repository = "https://github.com/your-username/pdf2"
+keywords = ["pdf", "rust", "python"]
+categories = ["development-tools"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
