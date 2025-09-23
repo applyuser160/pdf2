@@ -7,7 +7,7 @@ import nox
 def tests(session):
     """Run Python tests."""
     session.run("uv", "sync", "--dev", external=True)
-    session.install("-e", ".")
+    session.run("uv", "pip", "install", "-e", ".", external=True)
     session.run("pytest", "tests/")
 
 
