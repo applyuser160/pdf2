@@ -1,0 +1,96 @@
+name: Tests
+
+on:
+  push:
+    branches: [ master, feature/* ]
+  pull_request:
+    branches: [ master, feature/* ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: rustfmt, clippy
+
+    - name: Cache Rust dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v4
+
+    - name: Install nox
+      run: uv tool install nox
+
+    - name: Install maturin
+      run: uv tool install maturin
+
+    - name: Run Python tests
+      run: nox -s tests --python ${{ matrix.python-version }}
+
+    - name: Run Rust tests
+      run: nox -s rust_tests
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        components: rustfmt, clippy
+
+    - name: Cache Rust dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+          target
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.13"
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+
+    - name: Install dependencies
+      run: |
+        uv tool install nox
+        uv tool install maturin
+
+    - name: Run Rust formatting check
+      run: cargo fmt --all -- --check
+
+    - name: Run Rust clippy
+      run: cargo clippy --all-targets --all-features -- -D warnings
+
+    - name: Run Python linting
+      run: |
+        uv sync --dev
+        uv run ruff check .
+        uv run ruff format --check .
