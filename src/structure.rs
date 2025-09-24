@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 // Using pyo3's prelude to get access to the #[pyclass] macro if needed later.
 // And to derive PyObjectProtocol for our structs.
@@ -39,7 +39,6 @@ pub struct Image {
     pub format: String,
 }
 
-
 /// An enum to represent any element that can be on a page.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum PageContent {
@@ -76,7 +75,12 @@ pub struct Document {
 impl TextBlock {
     #[new]
     fn new(text: String, x: f32, y: f32, font_size: f32) -> Self {
-        TextBlock { text, x, y, font_size }
+        TextBlock {
+            text,
+            x,
+            y,
+            font_size,
+        }
     }
 }
 
@@ -84,7 +88,14 @@ impl TextBlock {
 impl Image {
     #[new]
     fn new(x: f32, y: f32, width: f32, height: f32, data: Vec<u8>, format: String) -> Self {
-        Image { x, y, width, height, data, format }
+        Image {
+            x,
+            y,
+            width,
+            height,
+            data,
+            format,
+        }
     }
 }
 
@@ -92,7 +103,12 @@ impl Image {
 impl Page {
     #[new]
     fn new(width: f32, height: f32, text_blocks: Vec<TextBlock>, images: Vec<Image>) -> Self {
-        Page { width, height, text_blocks, images }
+        Page {
+            width,
+            height,
+            text_blocks,
+            images,
+        }
     }
 }
 

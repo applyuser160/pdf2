@@ -1,7 +1,8 @@
 import pdf2
 import os
 
-def main():
+
+def main() -> None:
     print("--- Testing PDF Generation ---")
 
     # 1. Create the native Rust objects directly.
@@ -28,6 +29,7 @@ def main():
         print(f"Success! Output file '{output_filename}' was created.")
     else:
         print(f"Error: Output file '{output_filename}' was not created.")
+
 
 if __name__ == "__main__":
     main()

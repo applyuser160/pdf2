@@ -1,11 +1,11 @@
 use pyo3::prelude::*;
 use std::path::Path;
 
-pub mod structure;
-pub mod parser;
 pub mod generator;
+pub mod parser;
+pub mod structure;
 
-use structure::{Document, Page, TextBlock, Image};
+use structure::{Document, Image, Page, TextBlock};
 
 #[pyfunction]
 fn parse(path_str: String) -> PyResult<Document> {
@@ -19,11 +19,9 @@ fn parse(path_str: String) -> PyResult<Document> {
 #[pyfunction]
 fn generate(doc: &Document, path_str: String) -> PyResult<()> {
     let path = Path::new(&path_str);
-    generator::generate_pdf(doc, path).map_err(|e| {
-        PyErr::new::<pyo3::exceptions::PyNotImplementedError, _>(format!("{}", e))
-    })
+    generator::generate_pdf(doc, path)
+        .map_err(|e| PyErr::new::<pyo3::exceptions::PyNotImplementedError, _>(format!("{}", e)))
 }
-
 
 /// A Python module implemented in Rust.
 #[pymodule]

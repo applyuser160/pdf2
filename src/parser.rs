@@ -1,6 +1,6 @@
 use crate::structure::{Document, Page, TextBlock};
-use std::path::Path;
 use std::fs;
+use std::path::Path;
 
 #[derive(Debug, thiserror::Error)]
 pub enum ParseError {
