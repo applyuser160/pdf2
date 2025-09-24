@@ -33,6 +33,17 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
 ]
 dynamic = ["version"]
+dependencies = [
+    "nox>=2025.5.1",
+]
 
 [tool.maturin]
 features = ["pyo3/extension-module"]
+
+[dependency-groups]
+dev = [
+    "bandit>=1.7.10",
+    "mypy>=1.14.1",
+    "pytest>=8.3.5",
+    "ruff>=0.13.1",
+]
