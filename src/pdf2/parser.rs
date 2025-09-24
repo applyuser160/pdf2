@@ -1,4 +1,4 @@
-use crate::structure::{Document, Page, TextBlock};
+use crate::pdf2::structure::{Document, Page, TextBlock};
 use std::fs;
 use std::path::Path;
 

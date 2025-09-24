@@ -1,17 +1,15 @@
 use pyo3::prelude::*;
 use std::path::Path;
 
-pub mod generator;
-pub mod parser;
-pub mod structure;
+pub mod pdf2;
 
-use structure::{Document, Image, Page, TextBlock};
+use pdf2::{Document, Image, Page, TextBlock};
 
 #[pyfunction]
 fn parse(path_str: String) -> PyResult<Document> {
     let path = Path::new(&path_str);
     // Here, we map the custom Rust error to a PyErr.
-    parser::parse_pdf(path).map_err(|e| {
+    pdf2::parser::parse_pdf(path).map_err(|e| {
         PyErr::new::<pyo3::exceptions::PyValueError, _>(format!("Failed to parse PDF: {}", e))
     })
 }
@@ -19,13 +17,13 @@ fn parse(path_str: String) -> PyResult<Document> {
 #[pyfunction]
 fn generate(doc: &Document, path_str: String) -> PyResult<()> {
     let path = Path::new(&path_str);
-    generator::generate_pdf(doc, path)
+    pdf2::generator::generate_pdf(doc, path)
         .map_err(|e| PyErr::new::<pyo3::exceptions::PyNotImplementedError, _>(format!("{}", e)))
 }
 
 /// A Python module implemented in Rust.
 #[pymodule]
-fn pdf2(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
+fn _core(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(parse, m)?)?;
     m.add_function(wrap_pyfunction!(generate, m)?)?;
     m.add_class::<Document>()?;

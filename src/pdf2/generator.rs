@@ -1,4 +1,4 @@
-use crate::structure::Document;
+use crate::pdf2::structure::Document;
 use printpdf::{Mm, PdfDocument};
 use std::fs::File;
 use std::io::BufWriter;
