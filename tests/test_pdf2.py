@@ -1,5 +1,6 @@
-import pdf2
 import os
+
+from pdf2 import TextBlock, Page, Document, generate
 
 
 def main() -> None:
@@ -7,9 +8,9 @@ def main() -> None:
 
     # 1. Create the native Rust objects directly.
     try:
-        text1 = pdf2.TextBlock("This is a test.", 10.0, 280.0, 12.0)
-        page1 = pdf2.Page(210.0, 297.0, [text1], [])
-        doc_to_save = pdf2.Document([page1])
+        text1 = TextBlock("This is a test.", 10.0, 280.0, 12.0)
+        page1 = Page(210.0, 297.0, [text1], [])
+        doc_to_save = Document([page1])
     except Exception as e:
         print(f"Error creating native objects: {e}")
         return
@@ -18,7 +19,7 @@ def main() -> None:
 
     # 2. Save the document to a PDF file by calling the native generate function.
     try:
-        pdf2.generate(doc_to_save, output_filename)
+        generate(doc_to_save, output_filename)
         print(f"Successfully called generate function for '{output_filename}'")
     except Exception as e:
         print(f"Error during PDF generation: {e}")

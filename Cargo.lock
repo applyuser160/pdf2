@@ -448,7 +448,7 @@ dependencies = [
 
 [[package]]
 name = "pdf2"
-version = "0.1.9"
+version = "0.1.8"
 dependencies = [
  "pdf-extract",
  "printpdf",
