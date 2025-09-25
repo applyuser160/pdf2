@@ -29,6 +29,8 @@ jobs:
 
     - name: Run Rust tests
       run: cargo test
+      env:
+        PYTHON_SYS_EXECUTABLE: python3
 
   lint:
     runs-on: ubuntu-latest
