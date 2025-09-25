@@ -8,9 +8,19 @@ edition = "2021"
 name = "pdf2"
 crate-type = ["cdylib", "rlib"]
 
+[features]
+extension-module = ["pyo3/extension-module"]
+
 [dependencies]
-pyo3 = { version = "0.25.0", features = ["serde", "extension-module"] }
+pyo3 = { version = "0.25.0", features = ["serde"] }
 serde = { version = "1.0", features = ["derive"] }
 pdf-extract = "0.9.0"
 printpdf = "0.6.0"
 thiserror = "1.0"
+lopdf = "0.38.0"
+rand = "0.9"
+
+[dev-dependencies]
+# The `auto-initialize` feature is used for running tests that link against the Python interpreter.
+# It is mutually exclusive with the `extension-module` feature used for building the library.
+pyo3 = { version = "0.25.0", features = ["serde", "auto-initialize"] }
