@@ -4,6 +4,8 @@ pub mod generator;
 pub mod parser;
 #[path = "pdf2/structure.rs"]
 pub mod structure;
+#[path = "pdf2/encryption.rs"]
+pub mod encryption;
 
 #[cfg(test)]
 #[path = "pdf2/test_generator.rs"]
@@ -14,6 +16,9 @@ pub mod test_parser;
 #[cfg(test)]
 #[path = "pdf2/test_structure.rs"]
 pub mod test_structure;
+#[cfg(test)]
+#[path = "pdf2/test_encryption.rs"]
+pub mod test_encryption;
 
 use pyo3::prelude::*;
 use std::path::Path;
@@ -41,6 +46,7 @@ fn generate(doc: &Document, path_str: String) -> PyResult<()> {
 fn pdf2(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(parse, m)?)?;
     m.add_function(wrap_pyfunction!(generate, m)?)?;
+    m.add_function(wrap_pyfunction!(encryption::encrypt_pdf, m)?)?;
     m.add_class::<Document>()?;
     m.add_class::<Page>()?;
     m.add_class::<TextBlock>()?;

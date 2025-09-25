@@ -12,6 +12,7 @@ from ._core import (
     Image,
     parse,
     generate,
+    encrypt_pdf,
 )
 
 __version__ = "0.1.0"
@@ -22,4 +23,5 @@ __all__ = [
     "Image",
     "parse",
     "generate",
+    "encrypt_pdf",
 ]

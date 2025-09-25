@@ -78,3 +78,17 @@ def generate(doc: Document, path_str: str) -> None:
         NotImplementedError: If PDF generation fails
     """
     ...
+
+def encrypt_pdf(input_path: str, output_path: str, user_password: str, owner_password: str | None) -> None:
+    """Encrypt a PDF file.
+
+    Args:
+        input_path: Path to the PDF file to encrypt
+        output_path: Path where the encrypted PDF file should be saved
+        user_password: User password for the PDF file
+        owner_password: Owner password for the PDF file. If not provided, the user password is used.
+
+    Raises:
+        ValueError: If the PDF file cannot be encrypted
+    """
+    ...
