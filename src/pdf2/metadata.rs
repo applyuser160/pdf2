@@ -148,14 +148,20 @@ fn parse_pdf_date(date_str: &str) -> Option<DateTime<FixedOffset>> {
         let (hours, minutes) = tz_part.split_at(2);
         let hours: i32 = hours.parse().ok()?;
         let minutes: i32 = minutes.parse().ok()?;
-        (date_part, FixedOffset::east_opt(hours * 3600 + minutes * 60).unwrap())
+        (
+            date_part,
+            FixedOffset::east_opt(hours * 3600 + minutes * 60).unwrap(),
+        )
     } else if let Some(pos) = s.rfind('-') {
         let (date_part, tz_part) = s.split_at(pos);
         let tz_part = &tz_part[1..].replace('\'', "");
         let (hours, minutes) = tz_part.split_at(2);
         let hours: i32 = hours.parse().ok()?;
         let minutes: i32 = minutes.parse().ok()?;
-        (date_part, FixedOffset::west_opt(hours * 3600 + minutes * 60).unwrap())
+        (
+            date_part,
+            FixedOffset::west_opt(hours * 3600 + minutes * 60).unwrap(),
+        )
     } else {
         (s, FixedOffset::east_opt(0).unwrap())
     };
