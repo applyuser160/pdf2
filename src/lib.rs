@@ -11,14 +11,14 @@ pub mod structure;
 #[path = "pdf2/test_generator.rs"]
 pub mod test_generator;
 #[cfg(test)]
+#[path = "pdf2/test_metadata.rs"]
+pub mod test_metadata;
+#[cfg(test)]
 #[path = "pdf2/test_parser.rs"]
 pub mod test_parser;
 #[cfg(test)]
 #[path = "pdf2/test_structure.rs"]
 pub mod test_structure;
-#[cfg(test)]
-#[path = "pdf2/test_metadata.rs"]
-pub mod test_metadata;
 
 use pyo3::prelude::*;
 use std::path::Path;
