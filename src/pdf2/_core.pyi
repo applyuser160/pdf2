@@ -79,7 +79,9 @@ def generate(doc: Document, path_str: str) -> None:
     """
     ...
 
-def encrypt_pdf(input_path: str, output_path: str, user_password: str, owner_password: str | None) -> None:
+def encrypt_pdf(
+    input_path: str, output_path: str, user_password: str, owner_password: str | None
+) -> None:
     """Encrypt a PDF file.
 
     Args:

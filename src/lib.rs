@@ -1,12 +1,15 @@
+#[path = "pdf2/encryption.rs"]
+pub mod encryption;
 #[path = "pdf2/generator.rs"]
 pub mod generator;
 #[path = "pdf2/parser.rs"]
 pub mod parser;
 #[path = "pdf2/structure.rs"]
 pub mod structure;
-#[path = "pdf2/encryption.rs"]
-pub mod encryption;
 
+#[cfg(test)]
+#[path = "pdf2/test_encryption.rs"]
+pub mod test_encryption;
 #[cfg(test)]
 #[path = "pdf2/test_generator.rs"]
 pub mod test_generator;
@@ -16,9 +19,6 @@ pub mod test_parser;
 #[cfg(test)]
 #[path = "pdf2/test_structure.rs"]
 pub mod test_structure;
-#[cfg(test)]
-#[path = "pdf2/test_encryption.rs"]
-pub mod test_encryption;
 
 use pyo3::prelude::*;
 use std::path::Path;
