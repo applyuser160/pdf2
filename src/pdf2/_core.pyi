@@ -78,3 +78,43 @@ def generate(doc: Document, path_str: str) -> None:
         NotImplementedError: If PDF generation fails
     """
     ...
+
+class Metadata:
+    """Represents the metadata of a PDF document."""
+
+    title: str
+    author: str
+    subject: str
+    keywords: str
+    creator: str
+    producer: str
+    creation_date: str
+    mod_date: str
+
+    def __init__(self) -> None: ...
+
+def get_metadata(path_str: str) -> Metadata:
+    """Get metadata from a PDF file.
+
+    Args:
+        path_str: Path to the PDF file
+
+    Returns:
+        Metadata object containing the PDF metadata
+
+    Raises:
+        ValueError: If the metadata cannot be read
+    """
+    ...
+
+def set_metadata(path_str: str, metadata: Metadata) -> None:
+    """Set metadata for a PDF file.
+
+    Args:
+        path_str: Path to the PDF file
+        metadata: Metadata object to write to the PDF
+
+    Raises:
+        ValueError: If the metadata cannot be written
+    """
+    ...

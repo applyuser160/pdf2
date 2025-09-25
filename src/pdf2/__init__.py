@@ -12,6 +12,9 @@ from ._core import (
     Image,
     parse,
     generate,
+    Metadata,
+    get_metadata,
+    set_metadata,
 )
 
 __version__ = "0.1.0"
@@ -22,4 +25,7 @@ __all__ = [
     "Image",
     "parse",
     "generate",
+    "Metadata",
+    "get_metadata",
+    "set_metadata",
 ]
