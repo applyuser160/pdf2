@@ -74,7 +74,7 @@ pub struct Document {
 #[pymethods]
 impl TextBlock {
     #[new]
-    fn new(text: String, x: f32, y: f32, font_size: f32) -> Self {
+    pub fn new(text: String, x: f32, y: f32, font_size: f32) -> Self {
         TextBlock {
             text,
             x,
@@ -87,7 +87,7 @@ impl TextBlock {
 #[pymethods]
 impl Image {
     #[new]
-    fn new(x: f32, y: f32, width: f32, height: f32, data: Vec<u8>, format: String) -> Self {
+    pub fn new(x: f32, y: f32, width: f32, height: f32, data: Vec<u8>, format: String) -> Self {
         Image {
             x,
             y,
@@ -102,7 +102,7 @@ impl Image {
 #[pymethods]
 impl Page {
     #[new]
-    fn new(width: f32, height: f32, text_blocks: Vec<TextBlock>, images: Vec<Image>) -> Self {
+    pub fn new(width: f32, height: f32, text_blocks: Vec<TextBlock>, images: Vec<Image>) -> Self {
         Page {
             width,
             height,
@@ -115,7 +115,7 @@ impl Page {
 #[pymethods]
 impl Document {
     #[new]
-    fn new(pages: Vec<Page>) -> Self {
+    pub fn new(pages: Vec<Page>) -> Self {
         Document { pages }
     }
 }
