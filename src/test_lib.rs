@@ -55,7 +55,10 @@ fn test_merge_pdfs() {
     let mut doc2 = create_dummy_pdf("Doc2", 1);
     doc1.save("test_merge_1.pdf").unwrap();
     doc2.save("test_merge_2.pdf").unwrap();
-    let paths = vec!["test_merge_1.pdf".to_string(), "test_merge_2.pdf".to_string()];
+    let paths = vec![
+        "test_merge_1.pdf".to_string(),
+        "test_merge_2.pdf".to_string(),
+    ];
 
     // Act
     merge_pdfs(paths, "merged.pdf".to_string()).unwrap();
@@ -64,14 +67,17 @@ fn test_merge_pdfs() {
     let merged_doc = LoDocument::load("merged.pdf").unwrap();
     assert_eq!(merged_doc.get_pages().len(), 2);
 
-    let page1_content = merged_doc.get_page_content(merged_doc.get_pages().get(&1).unwrap().clone()).unwrap();
+    let page1_content = merged_doc
+        .get_page_content(merged_doc.get_pages().get(&1).unwrap().clone())
+        .unwrap();
     let page1_text = String::from_utf8(page1_content).unwrap();
     assert!(page1_text.contains("Doc1"));
 
-    let page2_content = merged_doc.get_page_content(merged_doc.get_pages().get(&2).unwrap().clone()).unwrap();
+    let page2_content = merged_doc
+        .get_page_content(merged_doc.get_pages().get(&2).unwrap().clone())
+        .unwrap();
     let page2_text = String::from_utf8(page2_content).unwrap();
     assert!(page2_text.contains("Doc2"));
-
 
     // Clean up
     fs::remove_file("test_merge_1.pdf").unwrap();
@@ -92,11 +98,15 @@ fn test_split_pdf() {
     let split_doc = LoDocument::load("split.pdf").unwrap();
     assert_eq!(split_doc.get_pages().len(), 2);
 
-    let page1_content = split_doc.get_page_content(split_doc.get_pages().get(&1).unwrap().clone()).unwrap();
+    let page1_content = split_doc
+        .get_page_content(split_doc.get_pages().get(&1).unwrap().clone())
+        .unwrap();
     let page1_text = String::from_utf8(page1_content).unwrap();
     assert!(page1_text.contains("Page 2"));
 
-    let page2_content = split_doc.get_page_content(split_doc.get_pages().get(&2).unwrap().clone()).unwrap();
+    let page2_content = split_doc
+        .get_page_content(split_doc.get_pages().get(&2).unwrap().clone())
+        .unwrap();
     let page2_text = String::from_utf8(page2_content).unwrap();
     assert!(page2_text.contains("Page 3"));
 

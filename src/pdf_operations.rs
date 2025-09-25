@@ -20,12 +20,8 @@ fn deep_copy_object(
         Object::Dictionary(mut dict) => {
             for (_, value) in dict.iter_mut() {
                 if let Object::Reference(id) = value {
-                    *value = Object::Reference(deep_copy_object(
-                        doc,
-                        *id,
-                        new_doc,
-                        copied_objects,
-                    )?);
+                    *value =
+                        Object::Reference(deep_copy_object(doc, *id, new_doc, copied_objects)?);
                 }
             }
             new_doc.objects.insert(new_id, Object::Dictionary(dict));
@@ -33,12 +29,8 @@ fn deep_copy_object(
         Object::Stream(mut stream) => {
             for (_, value) in stream.dict.iter_mut() {
                 if let Object::Reference(id) = value {
-                    *value = Object::Reference(deep_copy_object(
-                        doc,
-                        *id,
-                        new_doc,
-                        copied_objects,
-                    )?);
+                    *value =
+                        Object::Reference(deep_copy_object(doc, *id, new_doc, copied_objects)?);
                 }
             }
             new_doc.objects.insert(new_id, Object::Stream(stream));
@@ -46,12 +38,7 @@ fn deep_copy_object(
         Object::Array(mut arr) => {
             for item in arr.iter_mut() {
                 if let Object::Reference(id) = item {
-                    *item = Object::Reference(deep_copy_object(
-                        doc,
-                        *id,
-                        new_doc,
-                        copied_objects,
-                    )?);
+                    *item = Object::Reference(deep_copy_object(doc, *id, new_doc, copied_objects)?);
                 }
             }
             new_doc.objects.insert(new_id, Object::Array(arr));
@@ -74,14 +61,15 @@ pub fn merge_pdfs(paths: Vec<String>, output_path: String) -> PyResult<()> {
         let mut copied_objects = BTreeMap::new();
 
         for page_id in doc.get_pages().values() {
-            let new_page_id =
-                deep_copy_object(&doc, *page_id, &mut merged_doc, &mut copied_objects)
-                    .map_err(|e| {
-                        PyErr::new::<pyo3::exceptions::PyIOError, _>(format!(
-                            "Failed to copy page: {}",
-                            e
-                        ))
-                    })?;
+            let new_page_id = deep_copy_object(
+                &doc,
+                *page_id,
+                &mut merged_doc,
+                &mut copied_objects,
+            )
+            .map_err(|e| {
+                PyErr::new::<pyo3::exceptions::PyIOError, _>(format!("Failed to copy page: {}", e))
+            })?;
             page_ids.push(new_page_id);
         }
     }
@@ -120,7 +108,10 @@ pub fn rotate_pdf(path: String, output_path: String, angle: i32) -> PyResult<()>
     })?;
 
     for (_, page_id) in doc.get_pages() {
-        if let Ok(page_dict) = doc.get_object_mut(page_id).and_then(|obj| obj.as_dict_mut()) {
+        if let Ok(page_dict) = doc
+            .get_object_mut(page_id)
+            .and_then(|obj| obj.as_dict_mut())
+        {
             let current_rotation = page_dict
                 .get(b"Rotate")
                 .and_then(|obj| obj.as_i64())
@@ -138,7 +129,12 @@ pub fn rotate_pdf(path: String, output_path: String, angle: i32) -> PyResult<()>
 }
 
 #[pyfunction]
-pub fn split_pdf(path: String, output_path: String, start_page: u32, end_page: u32) -> PyResult<()> {
+pub fn split_pdf(
+    path: String,
+    output_path: String,
+    start_page: u32,
+    end_page: u32,
+) -> PyResult<()> {
     let doc = LoDocument::load(&path).map_err(|e| {
         PyErr::new::<pyo3::exceptions::PyValueError, _>(format!("Failed to load PDF: {}", e))
     })?;
@@ -148,15 +144,10 @@ pub fn split_pdf(path: String, output_path: String, start_page: u32, end_page: u
 
     for page_num in start_page..=end_page {
         if let Some(page_id) = doc.get_pages().get(&page_num) {
-            let new_page_id =
-                deep_copy_object(&doc, *page_id, &mut new_doc, &mut copied_objects).map_err(
-                    |e| {
-                        PyErr::new::<pyo3::exceptions::PyIOError, _>(format!(
-                            "Failed to copy page: {}",
-                            e
-                        ))
-                    },
-                )?;
+            let new_page_id = deep_copy_object(&doc, *page_id, &mut new_doc, &mut copied_objects)
+                .map_err(|e| {
+                PyErr::new::<pyo3::exceptions::PyIOError, _>(format!("Failed to copy page: {}", e))
+            })?;
             page_ids.push(new_page_id);
         }
     }
