@@ -12,6 +12,9 @@ from ._core import (
     Image,
     parse,
     generate,
+    merge_pdfs,
+    split_pdf,
+    rotate_pdf,
 )
 
 __version__ = "0.1.0"
@@ -22,4 +25,7 @@ __all__ = [
     "Image",
     "parse",
     "generate",
+    "merge_pdfs",
+    "split_pdf",
+    "rotate_pdf",
 ]
