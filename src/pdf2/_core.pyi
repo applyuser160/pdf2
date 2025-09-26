@@ -78,3 +78,47 @@ def generate(doc: Document, path_str: str) -> None:
         NotImplementedError: If PDF generation fails
     """
     ...
+
+def merge_pdfs(paths: List[str], output_path: str) -> None:
+    """Merge multiple PDF files into a single PDF.
+
+    Args:
+        paths: List of paths to the PDF files to merge
+        output_path: Path where the merged PDF file should be saved
+
+    Raises:
+        ValueError: If a PDF file cannot be loaded
+        IOError: If the merged PDF file cannot be saved
+    """
+    ...
+
+def split_pdf(path: str, output_path: str, start_page: int, end_page: int) -> None:
+    """Split a PDF file into a range of pages.
+
+    Args:
+        path: Path to the PDF file to split
+        output_path: Path where the split PDF file should be saved
+        start_page: The first page to include in the split PDF
+        end_page: The last page to include in the split PDF
+
+    Raises:
+        ValueError: If the PDF file cannot be loaded
+        IOError: If the split PDF file cannot be saved
+    """
+    ...
+
+def rotate_pdf(path: str, output_path: str, angle: int) -> None:
+    """Rotate all pages in a PDF by a specified angle.
+
+    The angle must be a multiple of 90.
+
+    Args:
+        path: Path to the PDF file to rotate
+        output_path: Path where the rotated PDF file should be saved
+        angle: The angle to rotate the pages by
+
+    Raises:
+        ValueError: If the PDF file cannot be loaded or the angle is not a multiple of 90
+        IOError: If the rotated PDF file cannot be saved
+    """
+    ...

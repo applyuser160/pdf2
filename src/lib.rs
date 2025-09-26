@@ -1,3 +1,5 @@
+pub mod pdf_operations;
+
 #[path = "pdf2/generator.rs"]
 pub mod generator;
 #[path = "pdf2/parser.rs"]
@@ -14,6 +16,10 @@ pub mod test_parser;
 #[cfg(test)]
 #[path = "pdf2/test_structure.rs"]
 pub mod test_structure;
+
+#[cfg(test)]
+#[path = "test_lib.rs"]
+mod test_lib;
 
 use pyo3::prelude::*;
 use std::path::Path;
@@ -41,6 +47,9 @@ fn generate(doc: &Document, path_str: String) -> PyResult<()> {
 fn pdf2(_py: Python, m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(parse, m)?)?;
     m.add_function(wrap_pyfunction!(generate, m)?)?;
+    m.add_function(wrap_pyfunction!(pdf_operations::merge_pdfs, m)?)?;
+    m.add_function(wrap_pyfunction!(pdf_operations::split_pdf, m)?)?;
+    m.add_function(wrap_pyfunction!(pdf_operations::rotate_pdf, m)?)?;
     m.add_class::<Document>()?;
     m.add_class::<Page>()?;
     m.add_class::<TextBlock>()?;
