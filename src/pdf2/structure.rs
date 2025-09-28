@@ -118,4 +118,8 @@ impl Document {
     pub fn new(pages: Vec<Page>) -> Self {
         Document { pages }
     }
+
+    pub fn get_page_count(&self) -> usize {
+        self.pages.len()
+    }
 }

@@ -7,6 +7,9 @@ pub mod parser;
 #[path = "pdf2/structure.rs"]
 pub mod structure;
 
+#[path = "pdf2/pdf.rs"]
+pub mod pdf;
+
 #[cfg(test)]
 #[path = "pdf2/test_encryption.rs"]
 pub mod test_encryption;
@@ -16,6 +19,9 @@ pub mod test_generator;
 #[cfg(test)]
 #[path = "pdf2/test_parser.rs"]
 pub mod test_parser;
+#[cfg(test)]
+#[path = "pdf2/test_pdf.rs"]
+pub mod test_pdf;
 #[cfg(test)]
 #[path = "pdf2/test_structure.rs"]
 pub mod test_structure;

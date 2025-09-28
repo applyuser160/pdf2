@@ -52,6 +52,7 @@ class Document:
     pages: List[Page]
 
     def __init__(self, pages: List[Page]) -> None: ...
+    def get_page_count(self) -> int: ...
 
 def parse(path_str: str) -> Document:
     """Parse a PDF file and return a Document object.
